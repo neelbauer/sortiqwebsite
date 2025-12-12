@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Settings - SortIQ Admin</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    .settings-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    h2 {
+      color: #333;
+      margin-top: 30px;
+      margin-bottom: 20px;
+      font-size: 20px;
+      border-bottom: 2px solid #4CAF50;
+      padding-bottom: 10px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 5px;
+      color: #555;
+      font-weight: bold;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #4CAF50;
+    }
+    input[type="text"]:disabled,
+    input[type="email"]:disabled {
+      background-color: #f5f5f5;
+      cursor: not-allowed;
+    }
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .submit-btn:hover {
+      background-color: #45a049;
+    }
+    .secondary-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: #2196F3;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 10px;
+      text-align: center;
+      display: inline-block;
+      text-decoration: none;
+    }
+    .secondary-btn:hover {
+      background-color: #0b7dda;
+    }
+    .alert {
+      background-color: #f44336;
+      color: white;
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .notice {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .back-link {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      color: #4CAF50;
+      text-decoration: none;
+    }
+    .back-link:hover {
+      text-decoration: underline;
+    }
+    .password-group {
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+    .password-group .form-group {
+      flex: 1;
+      margin-bottom: 0;
+    }
+    .change-password-section {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="settings-container">
+    <h1>Settings</h1>
+    
+    <% if flash[:alert] %>
+      <div class="alert"><%= flash[:alert] %></div>
+    <% end %>
+    
+    <% if flash[:notice] %>
+      <div class="notice"><%= flash[:notice] %></div>
+    <% end %>
+    
+    <%= form_with model: @user, url: change_password_path, method: :patch, local: true do |f| %>
+      <h2>Profile Information</h2>
+      
+      <div class="form-group">
+        <%= f.label :company, "Company" %>
+        <%= f.text_field :company, placeholder: "Your company name" %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :username, "Username" %>
+        <%= f.text_field :username, disabled: true %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :first_name, "First Name" %>
+        <%= f.text_field :first_name, placeholder: "Your first name" %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :last_name, "Last Name" %>
+        <%= f.text_field :last_name, placeholder: "Your last name" %>
+      </div>
+      
+      <div class="form-group">
+        <%= f.label :email, "Email" %>
+        <%= f.email_field :email, placeholder: "your.email@example.com" %>
+      </div>
+      
+      <%= f.submit "Update Profile", class: "submit-btn" %>
+    <% end %>
+    
+    <div class="change-password-section">
+      <h2>Change Password</h2>
+      <%= form_with url: change_password_path, method: :patch, local: true do |f| %>
+        <div class="form-group">
+          <%= label_tag :current_password, "Current Password" %>
+          <%= password_field_tag :current_password %>
+        </div>
+        
+        <div class="form-group">
+          <%= label_tag :new_password, "New Password" %>
+          <%= password_field_tag :new_password %>
+        </div>
+        
+        <div class="form-group">
+          <%= label_tag :password_confirmation, "Confirm New Password" %>
+          <%= password_field_tag :password_confirmation %>
+        </div>
+        
+        <%= submit_tag "Change Password", class: "secondary-btn" %>
+      <% end %>
+    </div>
+    
+    <%= link_to "← Back to Dashboard", dashboard_path, class: "back-link" %>
+  </div>
+</body>
+</html>

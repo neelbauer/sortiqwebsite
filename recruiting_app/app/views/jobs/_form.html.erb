@@ -1,0 +1,140 @@
+<style>
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .form-group input[type="text"],
+  .form-group input[type="number"],
+  .form-group input[type="date"],
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  .form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  .form-group textarea.large {
+    min-height: 300px;
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .error-messages {
+    background-color: #f44336;
+    color: white;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .error-messages h3 {
+    margin: 0 0 10px 0;
+    color: white;
+  }
+  .error-messages ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+</style>
+
+<% if @job.errors.any? %>
+  <div class="error-messages">
+    <h3><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h3>
+    <ul>
+      <% @job.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: @job, local: true) do |form| %>
+  <div class="form-group">
+    <%= form.label :job_title, "Job Title" %>
+    <%= form.text_field :job_title %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :concise_description, "Concise Description *" %>
+    <%= form.text_field :concise_description, required: true %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :job_url, "Job URL" %>
+    <%= form.text_field :job_url, placeholder: "https://..." %>
+  </div>
+  
+  <div class="form-group">
+    <%= label_tag :company_id, "Company" %>
+    <%= select_tag :company_id, 
+        options_from_collection_for_select(Company.order(:company_name), :id, :company_name, @job.companies.first&.id),
+        { include_blank: "Select a company...", class: "form-select", style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-size: 14px;" } %>
+  </div>
+  
+  <div class="form-grid">
+    <div class="form-group">
+      <%= form.label :hiring_manager, "Hiring Manager" %>
+      <%= form.text_field :hiring_manager %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :date_opened, "Date Opened" %>
+      <%= form.date_field :date_opened %>
+    </div>
+  </div>
+  
+  <div class="form-grid">
+    <div class="form-group">
+      <%= form.label :site, "Site" %>
+      <%= form.select :site, Job::SITE_OPTIONS, { include_blank: "Select site type..." }, { class: "form-select" } %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :commute, "Commute" %>
+      <%= form.select :commute, Job::COMMUTE_OPTIONS, { include_blank: "Select commute type..." }, { class: "form-select" } %>
+    </div>
+  </div>
+  
+  <div class="form-grid">
+    <div class="form-group">
+      <%= form.label :salary_range_low, "Salary Range Low" %>
+      <%= form.number_field :salary_range_low, min: 0, step: 1000, placeholder: "75000" %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :salary_range_high, "Salary Range High" %>
+      <%= form.number_field :salary_range_high, min: 0, step: 1000, placeholder: "125000" %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :recruiting_notes, "Recruiting Notes" %>
+    <%= form.text_area :recruiting_notes, rows: 4, placeholder: "Internal recruiting notes..." %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :tech_stack, "Tech Stack" %>
+    <%= form.text_area :tech_stack, rows: 4, placeholder: "React, Node.js, PostgreSQL, AWS..." %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :description, "Description" %>
+    <%= form.text_area :description, class: "large", placeholder: "Full job description..." %>
+  </div>
+  
+  <div style="display: flex; gap: 10px; margin-top: 30px;">
+    <%= form.submit class: "btn btn-primary" %>
+    <%= link_to "Cancel", jobs_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

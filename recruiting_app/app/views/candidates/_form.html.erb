@@ -1,0 +1,154 @@
+<style>
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  .form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  .form-group textarea.large {
+    min-height: 300px;
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .error-messages {
+    background-color: #f44336;
+    color: white;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .error-messages h3 {
+    margin: 0 0 10px 0;
+    color: white;
+  }
+  .error-messages ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+</style>
+
+<% if @candidate.errors.any? %>
+  <div class="error-messages">
+    <h3><%= pluralize(@candidate.errors.count, "error") %> prohibited this candidate from being saved:</h3>
+    <ul>
+      <% @candidate.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: @candidate, local: true) do |form| %>
+  <div class="form-grid">
+    <div class="form-group">
+      <%= form.label :first_name, "First Name *" %>
+      <%= form.text_field :first_name, required: true %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :last_name, "Last Name *" %>
+      <%= form.text_field :last_name, required: true %>
+    </div>
+  </div>
+  
+  <div class="form-grid">
+    <div class="form-group">
+      <%= form.label :email, "Email" %>
+      <%= form.email_field :email %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :phone, "Phone" %>
+      <%= form.text_field :phone %>
+    </div>
+  </div>
+  
+  <div class="form-grid">
+    <div class="form-group">
+      <%= form.label :grade, "Grade" %>
+      <%= form.select :grade, Candidate::GRADES, { selected: @candidate.grade || 'TBD' }, { class: "form-select" } %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :source, "Source" %>
+      <%= form.text_field :source %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :role, "Role" %>
+    <%= form.text_field :role, placeholder: "e.g., Full Stack Developer, DevOps Engineer..." %>
+  </div>
+  
+  <div class="form-grid">
+    <div class="form-group">
+      <%= form.label :linkedin, "LinkedIn URL" %>
+      <%= form.text_field :linkedin, placeholder: "https://linkedin.com/in/..." %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :github, "GitHub URL" %>
+      <%= form.text_field :github, placeholder: "https://github.com/..." %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :blog, "Blog URL" %>
+    <%= form.text_field :blog, placeholder: "https://..." %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :tech_stack, "Tech Stack" %>
+    <%= form.text_area :tech_stack, rows: 4, placeholder: "React, Node.js, PostgreSQL, AWS..." %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :fun, "Fun Facts / Notes" %>
+    <%= form.text_area :fun, rows: 4, placeholder: "Interesting facts, hobbies, notes..." %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :resume_text, "Resume Text" %>
+    <%= form.text_area :resume_text, class: "large", placeholder: "Paste full resume text here..." %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :resume_files, "Upload Resume Files (PDF, DOC, DOCX only)" %>
+    <%= form.file_field :resume_files, multiple: true, accept: ".pdf,.doc,.docx" %>
+    <% if @candidate.resume_files.attached? %>
+      <div style="margin-top: 10px;">
+        <strong>Current files:</strong>
+        <ul>
+          <% @candidate.resume_files.each do |file| %>
+            <li><%= file.filename %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+  
+  <div style="display: flex; gap: 10px; margin-top: 30px;">
+    <%= form.submit class: "btn btn-primary" %>
+    <%= link_to "Cancel", candidates_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>

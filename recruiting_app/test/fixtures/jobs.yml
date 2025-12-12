@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  job_url: MyString
+  hiring_manager: MyString
+  tech_stack: MyText
+  salary_range_low: 1
+  salary_range_high: 1
+  concise_description: MyString
+  description: MyText
+  date_opened: 2025-12-06
+
+two:
+  job_url: MyString
+  hiring_manager: MyString
+  tech_stack: MyText
+  salary_range_low: 1
+  salary_range_high: 1
+  concise_description: MyString
+  description: MyText
+  date_opened: 2025-12-06

@@ -1,0 +1,78 @@
+<style>
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .form-group input[type="text"],
+  .form-group input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  .error-messages {
+    background-color: #f44336;
+    color: white;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .error-messages h3 {
+    margin: 0 0 10px 0;
+    color: white;
+  }
+  .error-messages ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+</style>
+
+<% if @hiring_team_member.errors.any? %>
+  <div class="error-messages">
+    <h3><%= pluralize(@hiring_team_member.errors.count, "error") %> prohibited this team member from being saved:</h3>
+    <ul>
+      <% @hiring_team_member.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: [@company, @hiring_team_member], local: true) do |form| %>
+  <div class="form-group">
+    <%= form.label :name, "Name *" %>
+    <%= form.text_field :name, required: true %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :title, "Title" %>
+    <%= form.text_field :title %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :email, "Email *" %>
+    <%= form.email_field :email, required: true %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :phone_number, "Phone Number" %>
+    <%= form.text_field :phone_number %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :linkedin_url, "LinkedIn URL" %>
+    <%= form.text_field :linkedin_url, placeholder: "https://linkedin.com/in/..." %>
+  </div>
+  
+  <div style="display: flex; gap: 10px; margin-top: 30px;">
+    <%= form.submit class: "btn btn-primary" %>
+    <%= link_to "Cancel", company_path(@company), class: "btn btn-secondary" %>
+  </div>
+<% end %>

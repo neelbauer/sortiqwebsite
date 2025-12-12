@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  job: one
+  candidate: one
+  stage: MyString
+
+two:
+  job: two
+  candidate: two
+  stage: MyString

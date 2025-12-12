@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @job.concise_description %> - Recruiting App</title>
+  <%= stylesheet_link_tag :app %>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h1, h2 {
+      color: #333;
+    }
+    .header-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 2px solid #e0e0e0;
+    }
+    .section {
+      margin-bottom: 40px;
+      padding: 20px;
+      background: #f9f9f9;
+      border-radius: 8px;
+    }
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      margin-top: 20px;
+    }
+    .info-column {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .info-item {
+      margin-bottom: 15px;
+    }
+    .info-item label {
+      font-weight: bold;
+      color: #666;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .info-item p {
+      margin: 0;
+      color: #333;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      padding: 12px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+    tr:hover {
+      background-color: #fff;
+    }
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.2s;
+    }
+    .btn-primary {
+      background-color: #4CAF50;
+      color: white;
+    }
+    .btn-primary:hover {
+      background-color: #45a049;
+    }
+    .btn-secondary {
+      background-color: #2196F3;
+      color: white;
+    }
+    .btn-secondary:hover {
+      background-color: #0b7dda;
+    }
+    .btn-warning {
+      background-color: #FF9800;
+      color: white;
+    }
+    .btn-warning:hover {
+      background-color: #e68900;
+    }
+    .btn-small {
+      padding: 6px 12px;
+      font-size: 12px;
+    }
+    .button-group {
+      display: flex;
+      gap: 10px;
+    }
+    .notice {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .stage-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-size: 12px;
+      background-color: #2196F3;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <% if flash[:notice] %>
+      <div class="notice"><%= flash[:notice] %></div>
+    <% end %>
+    
+    <div class="header-bar">
+      <div>
+        <h1><%= @job.job_title || @job.concise_description %></h1>
+        <% if @companies.any? %>
+          <p style="color: #666; font-size: 1.1em; margin: 10px 0 0 0;">
+            <%= link_to @companies.first.company_name, company_path(@companies.first), style: "color: #2196F3; text-decoration: none;" %><%= @companies.first.city.present? || @companies.first.state.present? ? ', ' : '' %><%= [@companies.first.city, @companies.first.state].select(&:present?).join(', ') %>
+          </p>
+        <% end %>
+        <% if @job.site.present? %>
+          <p style="color: #666; font-size: 1em; margin: 5px 0 0 0;">
+            <strong>Site:</strong> <%= @job.site %>
+          </p>
+        <% end %>
+      </div>
+      <div class="button-group">
+        <%= link_to "← Back", jobs_path, class: "btn btn-secondary" %>
+        <%= link_to "Add Recruiting", recruiting_services_path, class: "btn btn-warning" %>
+        <%= link_to "Edit", edit_job_path(@job), class: "btn btn-primary" %>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="info-grid">
+        <div class="info-column">
+          <div class="info-item">
+            <label>Salary Range:</label>
+            <p>
+              <% if @job.salary_range_low && @job.salary_range_high %>
+                $<%= number_with_delimiter(@job.salary_range_low) %> - $<%= number_with_delimiter(@job.salary_range_high) %>
+              <% else %>
+                N/A
+              <% end %>
+            </p>
+          </div>
+          <div class="info-item">
+            <label>Hiring Manager:</label>
+            <p><%= @job.hiring_manager || "N/A" %></p>
+          </div>
+          <div class="info-item">
+            <label>Date Opened:</label>
+            <p><%= @job.date_opened ? @job.date_opened.strftime("%m/%d/%Y") : "N/A" %></p>
+          </div>
+        </div>
+        
+        <div class="info-column">
+          <div class="info-item">
+            <label>Hiring Team:</label>
+            <% if @hiring_team_members.any? %>
+              <% @hiring_team_members.each do |member| %>
+                <p style="margin: 5px 0;">
+                  <%= link_to member.name, company_hiring_team_member_path(@companies.first, member), style: "color: #2196F3; text-decoration: none; font-weight: 500;" %><% if member.title.present? %> - <%= member.title %><% end %>
+                </p>
+              <% end %>
+            <% else %>
+              <p>N/A</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="info-item" style="margin-top: 20px;">
+        <label>Tech Stack:</label>
+        <p><%= @job.tech_stack || "N/A" %></p>
+      </div>
+      <div class="info-item" style="margin-top: 20px;">
+        <label>Concise Description:</label>
+        <p><%= @job.concise_description %></p>
+      </div>
+      <div class="info-item" style="margin-top: 20px;">
+        <label>Description:</label>
+        <p style="white-space: pre-wrap;"><%= @job.description || "N/A" %></p>
+      </div>
+    </div>
+    
+    <div class="section">
+      <h2>Notes</h2>
+      <%= form_with(model: @job, local: true) do |form| %>
+        <%= form.text_area :notes, rows: 10, style: "width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px; font-family: Arial, sans-serif; font-size: 14px;" %>
+        <div style="margin-top: 10px;">
+          <%= form.submit "Save Notes", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+    
+    <div class="section">
+      <h2>Candidates</h2>
+      <% if @job_candidates.any? %>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Stage</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @job_candidates.each do |job_candidate| %>
+              <tr>
+                <td>
+                  <span style="font-weight: bold; color: #4CAF50; margin-right: 8px;"><%= job_candidate.candidate.grade || 'TBD' %></span>
+                  <%= link_to "#{job_candidate.candidate.first_name} #{job_candidate.candidate.last_name}", candidate_path(job_candidate.candidate), style: "color: #2196F3; text-decoration: none;" %>
+                </td>
+                <td><%= job_candidate.candidate.email || "N/A" %></td>
+                <td><%= job_candidate.candidate.phone || "N/A" %></td>
+                <td>
+                  <% if job_candidate.stage.present? %>
+                    <span class="stage-badge"><%= job_candidate.stage %></span>
+                  <% else %>
+                    N/A
+                  <% end %>
+                </td>
+                <td>
+                  <%= link_to "View", candidate_path(job_candidate.candidate), class: "btn btn-secondary btn-small" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p style="color: #666;">No candidates associated with this job yet.</p>
+      <% end %>
+    </div>
+  </div>
+</body>
+</html>

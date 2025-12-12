@@ -1,0 +1,150 @@
+<style>
+  .form-group {
+    margin-bottom: 20px;
+  }
+  .form-group label {
+    display: block;
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 8px;
+  }
+  .form-group input[type="text"],
+  .form-group input[type="number"],
+  .form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+  }
+  .form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+  }
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .error-messages {
+    background-color: #f44336;
+    color: white;
+    padding: 15px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+  }
+  .error-messages h3 {
+    margin: 0 0 10px 0;
+    color: white;
+  }
+  .error-messages ul {
+    margin: 0;
+    padding-left: 20px;
+  }
+</style>
+
+<% if @company.errors.any? %>
+  <div class="error-messages">
+    <h3><%= pluralize(@company.errors.count, "error") %> prohibited this company from being saved:</h3>
+    <ul>
+      <% @company.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with(model: @company, local: true) do |form| %>
+  <%= form.hidden_field :is_client %>
+  
+  <div class="form-group">
+    <%= form.label :company_name, "Company Name" %>
+    <%= form.text_field :company_name, placeholder: "Company name..." %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :description, "Description" %>
+    <%= form.text_area :description, rows: 4, placeholder: "Brief description of the company..." %>
+  </div>
+  
+  <% unless @company.is_client %>
+    <div class="form-group">
+      <%= form.label :priority, "Priority" %>
+      <%= form.select :priority, Company::PRIORITIES, { selected: @company.priority || 'TBD' }, { class: "form-select" } %>
+    </div>
+  <% end %>
+  
+  <div class="form-grid">
+    <div class="form-group">
+      <%= form.label :url, "Website URL" %>
+      <%= form.text_field :url, placeholder: "https://example.com" %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :jobs_url, "Jobs URL" %>
+      <%= form.text_field :jobs_url, placeholder: "https://example.com/careers" %>
+    </div>
+  </div>
+  
+  <div class="form-grid">
+    <div class="form-group">
+      <%= form.label :phone_number, "Phone Number" %>
+      <%= form.text_field :phone_number, placeholder: "(555) 123-4567" %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :headcount, "Headcount" %>
+      <%= form.number_field :headcount, min: 0 %>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :headcount, "Headcount" %>
+    <%= form.number_field :headcount, min: 0 %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :description, "Description" %>
+    <%= form.text_area :description, rows: 4 %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :investors_memo, "Investors Memo" %>
+    <%= form.text_area :investors_memo, rows: 6, placeholder: "Notes about investors, funding, and financial information..." %>
+  </div>
+  
+  <div class="form-grid">
+    <div class="form-group">
+      <%= form.label :address_1, "Address 1" %>
+      <%= form.text_field :address_1 %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :address_2, "Address 2" %>
+      <%= form.text_field :address_2 %>
+    </div>
+  </div>
+  
+  <div class="form-grid">
+    <div class="form-group">
+      <%= form.label :city, "City" %>
+      <%= form.text_field :city %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :state, "State" %>
+      <%= form.text_field :state, maxlength: 2, placeholder: "CA" %>
+    </div>
+    
+    <div class="form-group">
+      <%= form.label :zip_code, "Zip Code" %>
+      <%= form.text_field :zip_code, maxlength: 10 %>
+    </div>
+  </div>
+  
+  <div style="display: flex; gap: 10px; margin-top: 30px;">
+    <%= form.submit class: "btn btn-primary" %>
+    <%= link_to "Cancel", companies_path, class: "btn btn-secondary" %>
+  </div>
+<% end %>
