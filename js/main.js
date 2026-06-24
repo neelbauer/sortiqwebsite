@@ -4,6 +4,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
     const mobileMenuClose = document.querySelector('.mobile-menu-close');
     const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    const currentYearElements = document.querySelectorAll('[data-current-year]');
+
+    currentYearElements.forEach(element => {
+        element.textContent = new Date().getFullYear();
+    });
 
     // Toggle mobile menu
     function toggleMobileMenu() {
