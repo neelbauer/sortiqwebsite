@@ -313,6 +313,13 @@ h6 {
     border-bottom-color: var(--flask-light-blue);
 }
 
+.nav-new-badge {
+    color: var(--flask-light-blue);
+    font-size: 0.72em;
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
 /* Nav CTA Button */
 .nav-cta-button {
     background: var(--primary-blue);
@@ -1683,10 +1690,19 @@ html {
     display: block;
 }
 
-.team-photo-container {
-    text-align: center;
+.team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 50px;
+    align-items: start;
     margin-top: 40px;
     margin-bottom: 40px;
+}
+
+.team-photo-container {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1846,6 +1862,17 @@ a:focus {
     text-decoration-color: var(--flask-pink);
     text-decoration-thickness: 0.08em;
     text-decoration-skip-ink: none;
+}
+
+.why-try-sortiq-section {
+    background: var(--primary-blue);
+    color: white;
+}
+
+.why-try-sortiq-section h2,
+.why-try-sortiq-section p,
+.why-try-sortiq-section .sortiq-text {
+    color: white;
 }
 
 .difference-grid {
