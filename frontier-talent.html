@@ -29,7 +29,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles.css?v=client-links-form-shadow-20260702">
 </head>
 
 <body>
@@ -43,10 +43,9 @@
             </a>
 
             <div class="desktop-nav">
-                <a href="recruiting.html" class="nav-link">Recruiting</a>
-                <a href="methodology.html" class="nav-link">Methodology</a>
+                <a href="recruiting.html" class="nav-link">Tech Talent</a>
                 <a href="frontier-talent.html" class="nav-link active">Frontier Talent <span class="nav-new-badge">NEW</span></a>
-                <a href="about.html" class="nav-link">About</a>
+                <a href="methodology.html" class="nav-link">Methodology</a>
                 <a href="#contact" class="nav-cta-button">Try&nbsp;<span class="sortiq-text">SortIQ</span></a>
             </div>
 
@@ -62,10 +61,9 @@
         <div class="mobile-menu">
             <button class="mobile-menu-close" aria-label="Close menu">x</button>
             <nav class="mobile-nav">
-                <a href="recruiting.html" class="mobile-nav-link">Recruiting</a>
-                <a href="methodology.html" class="mobile-nav-link">Methodology</a>
+                <a href="recruiting.html" class="mobile-nav-link">Tech Talent</a>
                 <a href="frontier-talent.html" class="mobile-nav-link active">Frontier Talent <span class="nav-new-badge">NEW</span></a>
-                <a href="about.html" class="mobile-nav-link">About</a>
+                <a href="methodology.html" class="mobile-nav-link">Methodology</a>
                 <a href="#contact" class="mobile-nav-link">Contact</a>
             </nav>
         </div>
@@ -73,16 +71,23 @@
 
     <header class="hero-consultation fade-in-section" id="main-content">
         <div class="container">
-            <div class="hero-header">
-                <h1>Frontier Talent</h1>
-                <p class="subtitle">We help you develop and harness frontier AI models, orchestrated agents and agent teams, and ideate around how to blend frontier talent into sprint planning, business teams, and and software engineering teams. Our approach isn't to replace people with AI, it is is to help people use AI productively and responsibly.</p>
+            <div class="hero-header recruiting-hero-header">
+                <div class="recruiting-hero-body">
+                    <div class="recruiting-hero-copy">
+                        <h1>Frontier Talent</h1>
+                        <p class="subtitle">We help you develop and harness frontier AI models, orchestrated agents and agent teams, and ideate around how to blend frontier talent into sprint planning, business teams, and and software engineering teams. Our approach isn't to replace people with AI, it is is to help people use AI productively and responsibly.</p>
+                    </div>
+                    <div class="recruiting-hero-image frontier-hero-image" aria-hidden="true">
+                        <img src="images/aigpu-blueprint-inverted.png" alt="" width="1024" height="1536" loading="eager">
+                    </div>
+                </div>
             </div>
         </div>
     </header>
 
-    <section class="services-content services-padding-top fade-in-section">
+    <section class="services-content services-padding-top">
         <div class="container">
-            <div class="hero-cta" style="margin-top: 0;">
+            <div class="hero-cta hero-cta-flush">
                 <div class="cta-card">
                     <div class="cta-icon" aria-hidden="true">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -112,27 +117,45 @@
                     <h3 class="cta-title">Operator Playbooks</h3>
                     <p class="cta-description">We translate messy recurring work into prompts, guardrails, handoffs, escalation rules, and manager-ready routines.</p>
                 </div>
+
+                <div class="cta-card">
+                    <div class="cta-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v12m6-6H6M5 5h14v14H5V5z" />
+                        </svg>
+                    </div>
+                    <h3 class="cta-title">Shape</h3>
+                    <p class="cta-description">Define the agent role, workflow boundaries, required context, review standards, and expected work product.</p>
+                </div>
+
+                <div class="cta-card">
+                    <div class="cta-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 7h16M7 4v6M17 4v6M6 14h12M8 18h8" />
+                        </svg>
+                    </div>
+                    <h3 class="cta-title">Build</h3>
+                    <p class="cta-description">Create the agent prompts, operating notes, source materials, QA checks, and human-in-the-loop review process.</p>
+                </div>
+
+                <div class="cta-card">
+                    <div class="cta-icon" aria-hidden="true">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 12l4 4L19 6M5 19h14M5 5h8" />
+                        </svg>
+                    </div>
+                    <h3 class="cta-title">Harness</h3>
+                    <p class="cta-description">Improve outputs over time with proven agent harness best practices, and playbooks for sprints, auditing, security, and code reviews.</p>
+                </div>
             </div>
         </div>
-    </section>
 
-    <section class="sortiq-difference-section fade-in-section" style="background: #f8f9fa;">
+    <section class="sortiq-difference-section frontier-harness-section">
         <div class="container">
             <h2>Harness Frontier Talent Like A Pro</h2>
-            <div class="difference-grid">
-                <div class="difference-card">
-                    <h3>Shape</h3>
-                    <p>Define the agent role, workflow boundaries, required context, review standards, and expected work product.</p>
-                </div>
-                <div class="difference-card">
-                    <h3>Build</h3>
-                    <p>Create the agent prompts, operating notes, source materials, QA checks, and human-in-the-loop review process.</p>
-                </div>
-                <div class="difference-card">
-                    <h3>Harness</h3>
-                    <p>Improve outputs over time with proven agent harness best practices, and playbooks for sprints, auditing, security, and code reviews.</p>
-                </div>
-            </div>
+            <p class="content-copy-wide">
+                We help operator-led teams that want AI agents to do useful work inside real workflows to ideate, experiment and execute. Whether your objective is business side or software engineering or somethign else entirely, we can help. The goal is not novelty. The goal is a practical agent bench that helps people move faster with better context.
+            </p>
         </div>
     </section>
 
@@ -183,15 +206,6 @@
         </div>
     </section>
 
-    <section class="sortiq-difference-section why-try-sortiq-section fade-in-section">
-        <div class="container">
-            <h2>Where Frontier Talent fits.</h2>
-            <p style="max-width: 900px; margin: 0 auto 40px; font-size: 1.1rem; line-height: 1.8; text-align: left;">
-                Frontier Talent is for operator-led teams that want AI agents to do useful work inside real workflows: market prep, territory research, sales support, service-line launches, hiring briefs, intake summaries, proposal support, reporting, and manager review. The goal is not novelty. The goal is a practical agent bench that helps people move faster with better context.
-            </p>
-        </div>
-    </section>
-
     <section class="contact-section" id="contact">
         <div class="container">
             <div class="contact-grid">
@@ -211,7 +225,7 @@
                             <label for="message" class="sr-only">Message</label>
                             <textarea id="message" name="message" rows="4" placeholder="What workflow should your first AI agent bench support?" required></textarea>
                         </div>
-                        <button type="submit" class="cta-button" style="width: 100%; border: none; cursor: pointer;">Send Message</button>
+                        <button type="submit" class="cta-button form-submit-full">Send Message</button>
                     </form>
                     <div class="contact-direct">
                         <p>Or call us directly:</p>
@@ -229,8 +243,9 @@
                 <div class="footer-column">
                     <h3>Company</h3>
                     <ul>
-                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="about.html">About</a></li>
                         <li><a href="about.html#team">Team</a></li>
+                        <li><a href="clients.html">Clients</a></li>
                     </ul>
                 </div>
 
@@ -238,8 +253,14 @@
                     <h3>Services</h3>
                     <ul>
                         <li><a href="recruiting.html">Recruiting</a></li>
-                        <li><a href="methodology.html">Methodology</a></li>
                         <li><a href="frontier-talent.html">Frontier Talent <span class="nav-new-badge">NEW</span></a></li>
+                        <li><a href="methodology.html">Methodology</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Etc</h3>
+                    <ul>
+                        <li><a href="articles.html">Articles</a></li>
                     </ul>
                 </div>
 
